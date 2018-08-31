@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.info.dao.FirendLinkDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.FirendLink">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="site_name" property="siteName" jdbcType="VARCHAR" />
+		<result column="site_link" property="siteLink" jdbcType="VARCHAR" />
+		<result column="is_use" property="isUse" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="wenxin" property="wenxin" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, update_time, site_name, site_link, is_use, qq, wenxin
+	</sql>
+	<select id="getFirendLinkList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from firend_link
+		where is_use='1' order by create_time;
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from firend_link
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from firend_link
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.FirendLink">
+		insert into firend_link (id, create_time, update_time,
+		site_name, site_link, is_use,
+		qq, wenxin)
+		values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{siteName,jdbcType=VARCHAR}, #{siteLink,jdbcType=VARCHAR}, #{isUse,jdbcType=VARCHAR},
+		#{qq,jdbcType=VARCHAR}, #{wenxin,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pers.blog.bean.FirendLink">
+		insert into firend_link
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="siteName != null">
+				site_name,
+			</if>
+			<if test="siteLink != null">
+				site_link,
+			</if>
+			<if test="isUse != null">
+				is_use,
+			</if>
+			<if test="qq != null">
+				qq,
+			</if>
+			<if test="wenxin != null">
+				wenxin,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="siteName != null">
+				#{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteLink != null">
+				#{siteLink,jdbcType=VARCHAR},
+			</if>
+			<if test="isUse != null">
+				#{isUse,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="wenxin != null">
+				#{wenxin,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pers.blog.bean.FirendLink">
+		update firend_link
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="siteName != null">
+				site_name = #{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteLink != null">
+				site_link = #{siteLink,jdbcType=VARCHAR},
+			</if>
+			<if test="isUse != null">
+				is_use = #{isUse,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="wenxin != null">
+				wenxin = #{wenxin,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pers.blog.bean.FirendLink">
+		update firend_link
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		site_name = #{siteName,jdbcType=VARCHAR},
+		site_link = #{siteLink,jdbcType=VARCHAR},
+		is_use = #{isUse,jdbcType=VARCHAR},
+		qq = #{qq,jdbcType=VARCHAR},
+		wenxin = #{wenxin,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

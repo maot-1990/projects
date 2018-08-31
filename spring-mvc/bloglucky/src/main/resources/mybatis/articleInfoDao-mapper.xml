@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.view.dao.ArticleInfoDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.ArticleInfo">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="TYPE" property="type" jdbcType="CHAR" />
+		<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+		<result column="HEART" property="heart" jdbcType="DECIMAL" />
+		<result column="AUTHOR" property="author" jdbcType="VARCHAR" />
+		<result column="IS_USE" property="isUse" jdbcType="VARCHAR" />
+		<result column="TITLE" property="title" jdbcType="VARCHAR" />
+		<result column="INTRODUCTION" property="introduction" jdbcType="VARCHAR" />
+		<result column="READING_COUNT" property="readingCount"
+			jdbcType="DECIMAL" />
+		<result column="IMG_URL" property="imgUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.pers.blog.bean.ArticleInfo"
+		extends="BaseResultMap">
+		<result column="CONTENT" property="content" jdbcType="CLOB" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, CREATE_TIME, UPDATE_TIME, TYPE, TYPE_NAME, HEART, AUTHOR, TITLE,
+		READING_COUNT,
+		IMG_URL,INTRODUCTION,IS_USE
+	</sql>
+	<sql id="Blob_Column_List">
+		CONTENT
+	</sql>
+	
+	<select id="getArticleInfoList" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from (select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use='1' and type in ('1','2')
+		order by create_time desc) as pi where 1=1
+		<if test="size != null">
+			<![CDATA[ 
+				 limit 0,#{size,jdbcType=INTEGER}
+			]]>
+		</if> 
+	</select>
+	
+	<select id="getArticleInfos" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from (select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use=#{isUse,jdbcType=INTEGER} and type=#{type,jdbcType=INTEGER}
+		order by ifnull(READING_COUNT,0) desc,create_time desc) as pi where 1=1
+		<if test="size != null">
+			<![CDATA[ 
+				 limit 0,#{size,jdbcType=INTEGER}
+			]]>
+		</if> 
+	</select>
+	
+	<select id="getArticleInfoDailySentent" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use='1' and type='3' 
+		order by create_time desc limit 0,1
+		
+		
+	</select>
+	
+	<select id="getArticleInfoAllList" resultMap="ResultMapWithBLOBs"
+		parameterType="com.pers.blog.util.SerachParam">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use='1'
+		<if test="type != null">
+			and TYPE=#{type,jdbcType=VARCHAR}
+		</if>
+		order by create_time desc		
+	</select>
+	
+	<select id="getHotClick" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from (select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use='1'
+		and type in ('1','2')
+		order by ifnull(READING_COUNT,0) desc,create_time desc) as pi where 1=1
+		<if test="size != null">
+			<![CDATA[ 
+				 limit 0,#{size,jdbcType=INTEGER}
+			]]>
+		</if> 
+	</select>
+	
+	<select id="getNewArticleInfo" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select * from (select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where 1=1 and is_use='1'
+		<if test="type != null">
+			<![CDATA[ 
+				 and type=#{type,jdbcType=VARCHAR}
+			]]>
+		</if> 
+		order by create_time desc) as pi where 1=1
+		<if test="size != null">
+			<![CDATA[ 
+				 limit 0,#{size,jdbcType=INTEGER}
+			]]>
+		</if> 
+	</select>
+	
+	<select id="getArticleInfoById" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO where id=#{id,jdbcType=VARCHAR}
+		
+	</select>
+	
+	<update id="updateArticleInfoReadCount" parameterType="String">
+		update
+		ARTICLE_INFO
+		set 
+		READING_COUNT = READING_COUNT + 1,
+		UPDATE_TIME = sysdate()
+		where ID
+		= #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateArticleInfoHeartCount" parameterType="String">
+		update
+		ARTICLE_INFO
+		set 
+		HEART = HEART + 1,
+		UPDATE_TIME = sysdate()
+		where ID
+		= #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE_INFO
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		ARTICLE_INFO
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.ArticleInfo">
+		insert into ARTICLE_INFO (ID,
+		CREATE_TIME, UPDATE_TIME,
+		TYPE,TYPE_NAME, HEART, AUTHOR, TITLE,INTRODUCTION,
+		READING_COUNT,
+		IMG_URL, CONTENT, IS_USE
+		)
+		values (#{id,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{type,jdbcType=CHAR}, 
+		#{typeName,jdbcType=VARCHAR}, 
+		#{heart,jdbcType=DECIMAL},
+		#{author,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{introduction,jdbcType=VARCHAR},
+		#{readingCount,jdbcType=DECIMAL}, #{imgUrl,jdbcType=VARCHAR},
+		#{content,jdbcType=CLOB},
+		#{isUse,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.pers.blog.bean.ArticleInfo">
+		insert into ARTICLE_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="typeName != null">
+				TYPE_NAME,
+			</if>
+			<if test="heart != null">
+				HEART,
+			</if>
+			<if test="author != null">
+				AUTHOR,
+			</if>
+			<if test="title != null">
+				TITLE,
+			</if>
+			<if test="introduction != null">
+				INTRODUCTION,
+			</if>
+			<if test="readingCount != null">
+				READING_COUNT,
+			</if>
+			<if test="imgUrl != null">
+				IMG_URL,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="isUse != null">
+				IS_USE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=CHAR},
+			</if>
+			<if test="typeName != null">
+				#{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="heart != null">
+				#{heart,jdbcType=DECIMAL},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="readingCount != null">
+				#{readingCount,jdbcType=DECIMAL},
+			</if>
+			<if test="imgUrl != null">
+				#{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=CLOB},
+			</if>
+			<if test="isUse != null">
+				#{IS_USE,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pers.blog.bean.ArticleInfo">
+		update ARTICLE_INFO
+		<set>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=CHAR},
+			</if>
+			<if test="typeName != null">
+				TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+			</if>
+			<if test="heart != null">
+				HEART = #{heart,jdbcType=DECIMAL},
+			</if>
+			<if test="author != null">
+				AUTHOR = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				TITLE = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="introduction != null">
+				INTRODUCTION= #{introduction,jdbcType=VARCHAR},
+			</if>
+			<if test="readingCount != null">
+				READING_COUNT = #{readingCount,jdbcType=DECIMAL},
+			</if>
+			<if test="imgUrl != null">
+				IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=CLOB},
+			</if>
+			<if test="isUse != null">
+				is_use = #{isUse,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pers.blog.bean.ArticleInfo">
+		update
+		ARTICLE_INFO
+		set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		TYPE =
+		#{type,jdbcType=CHAR},
+		TYPE_NAME =
+		#{typeName,jdbcType=CHAR},
+		HEART = #{heart,jdbcType=DECIMAL},
+		AUTHOR =
+		#{author,jdbcType=VARCHAR},
+		TITLE = #{title,jdbcType=VARCHAR},
+		INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+		READING_COUNT = #{readingCount,jdbcType=DECIMAL},
+		IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+		CONTENT = #{content,jdbcType=CLOB},
+		IS_USE = #{isUse,jdbcType=VARCHAR}
+		where ID
+		= #{id,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

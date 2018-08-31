@@ -1,0 +1,18 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      enabled: true
+    healthcheck:
+      enabled: true
+
+spring:
+  cloud:
+    config:
+      profile: dev
+      label: master
+      name: demo
+      discovery:
+        enabled: true
+        service-id: CONFIG-CENTER
+

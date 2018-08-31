@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maot.navigation.dao.UserWebsiteInfoDao">
+	<resultMap id="BaseResultMap" type="com.maot.navigation.entity.UserWebsiteInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="user_id" property="userId" jdbcType="VARCHAR" />
+		<result column="web_name" property="webName" jdbcType="VARCHAR" />
+		<result column="web_site" property="webSite" jdbcType="VARCHAR" />
+		<result column="label" property="label" jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, update_time, user_id, web_name, web_site,
+		label, sort,
+		status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user_website_info
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		user_website_info
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.maot.navigation.entity.UserWebsiteInfo">
+		insert into user_website_info
+		(id, create_time, update_time,
+		user_id, web_name, web_site,
+		label, sort,
+		status
+		)
+		values (#{id,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{userId,jdbcType=VARCHAR}, #{webName,jdbcType=VARCHAR},
+		#{webSite,jdbcType=VARCHAR},
+		#{label,jdbcType=VARCHAR},
+		#{sort,jdbcType=INTEGER},
+		#{status,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.maot.navigation.entity.UserWebsiteInfo">
+		insert into user_website_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="webName != null">
+				web_name,
+			</if>
+			<if test="webSite != null">
+				web_site,
+			</if>
+			<if test="label != null">
+				label,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="webName != null">
+				#{webName,jdbcType=VARCHAR},
+			</if>
+			<if test="webSite != null">
+				#{webSite,jdbcType=VARCHAR},
+			</if>
+			<if test="label != null">
+				#{label,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.maot.navigation.entity.UserWebsiteInfo">
+		update user_website_info
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="webName != null">
+				web_name = #{webName,jdbcType=VARCHAR},
+			</if>
+			<if test="webSite != null">
+				web_site = #{webSite,jdbcType=VARCHAR},
+			</if>
+			<if test="label != null">
+				label = #{label,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.maot.navigation.entity.UserWebsiteInfo">
+		update
+		user_website_info
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		user_id =
+		#{userId,jdbcType=VARCHAR},
+		web_name = #{webName,jdbcType=VARCHAR},
+		web_site = #{webSite,jdbcType=VARCHAR},
+		label =
+		#{label,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=INTEGER},
+		status =
+		#{status,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="getUserWebsiteInfo" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from user_website_info
+		where user_id = #{userId,jdbcType=VARCHAR} and status='1'
+	</select>
+</mapper>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/jee
+		http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- 抓去笑话的任务 -->
+	<bean id="grabJoke" class="com.pers.blog.task.GrabJokeServiceImpl" />
+	<bean id="grabJokeBeanMethodDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="grabJoke" />
+		<property name="targetMethod" value="work" />
+		<property name="concurrent" value="false" /> <!-- 作业不并发调度 -->
+	</bean>
+	<bean id="grabJokeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="grabJokeBeanMethodDetail" />
+		<!-- 每天23点执行 -->
+		<property name="cronExpression" value="0 0 01 * * ? *" />
+		<!-- <property name="cronExpression" value="0 0/1 * * * ? *" /> -->
+	</bean>
+
+	<!-- 心跳任务 -->
+	<bean id="heartTask" class="com.pers.blog.task.HeartTaskServiceImpl" />
+	<bean id="heartTaskBeanMethodDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="heartTask" />
+		<property name="targetMethod" value="cruentDate" />
+		<property name="concurrent" value="false" /> <!-- 作业不并发调度 -->
+	</bean>
+	<bean id="heartTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="heartTaskBeanMethodDetail" />
+		<!-- 每天23点执行 -->
+		<property name="cronExpression" value="0 0/5 * * * ? *" />
+		<!-- <property name="cronExpression" value="0 0/1 * * * ? *" /> -->
+	</bean>
+	
+	<!-- 每日清空当日访问ip数 -->
+	<bean id="iPTask" class="com.pers.blog.task.IPTaskServiceImpl" />
+	<bean id="iPTaskBeanMethodDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="iPTask" />
+		<property name="targetMethod" value="reSetIP" />
+		<property name="concurrent" value="false" /> <!-- 作业不并发调度 -->
+	</bean>
+	<bean id="iPTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="iPTaskBeanMethodDetail" />
+		<!-- 每天凌晨5点执行 -->
+		<property name="cronExpression" value="0 05 0 * * ? *" />
+	</bean>
+	
+
+	<!-- 订制任务列表 -->
+	<bean id="scheduler" lazy-init="false"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="grabJokeTrigger" />
+				<ref bean="heartTaskTrigger" />
+				<ref bean="iPTaskTrigger" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

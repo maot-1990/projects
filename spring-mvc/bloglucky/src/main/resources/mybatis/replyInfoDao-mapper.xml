@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.system.dao.ReplyInfoDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.ReplyInfo">
+		<id column="rid" property="rId" jdbcType="VARCHAR" />
+		<result column="rcreate_time" property="rcreateTime" jdbcType="TIMESTAMP" />
+		<result column="rupdate_time" property="rupdateTime" jdbcType="TIMESTAMP" />
+		<result column="ris_use" property="risUse" jdbcType="CHAR" />
+		<result column="rmsg_id" property="rmsgId" jdbcType="VARCHAR" />
+		<result column="rcontent" property="rcontent" jdbcType="VARCHAR" />
+		<result column="rpraise" property="rpraise" jdbcType="INTEGER" />
+		<result column="rtread" property="rtread" jdbcType="INTEGER" />
+		<result column="ruser_id" property="ruserId" jdbcType="VARCHAR" />
+		<result column="ruser_name" property="ruserName" jdbcType="VARCHAR" />
+		<result column="buser_id" property="buserId" jdbcType="VARCHAR" />
+		<result column="buser_name" property="buserName" jdbcType="VARCHAR" />
+		<result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		rid, rcreate_time, rupdate_time, ris_use, rmsg_id,
+		rcontent, rpraise, rtread,
+		ruser_id,ruser_name,buser_id,buser_name
+	</sql>
+	
+	<select id="getReplyInfoListByMsgId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select t.*,b.head_img_url from reply_info t
+		left join syst_user b on t.ruser_id=b.id
+		where FIND_IN_SET(rmsg_id,getChildrenReplyInfo(#{id,jdbcType=VARCHAR}))
+		order by t.rcreate_time
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from reply_info
+		where rid = #{rId,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateGlyphiconThumbs">
+		update reply_info
+		<set>
+			rupdate_time=sysdate(),
+			<if test="type == 1">
+				rpraise = rpraise+1,
+			</if>
+			<if test="type == 2">
+				rtread = rtread+1
+			</if>
+		</set>
+		where rid = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		reply_info
+		where rid = #{rId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.ReplyInfo">
+		insert into reply_info (rid,
+		rcreate_time, rupdate_time,
+		ris_use, rmsg_id, rcontent,
+		rpraise, rtread,
+		ruser_id, ruser_name,buser_id, buser_name
+		)
+		values
+		(#{rId,jdbcType=VARCHAR}, #{rcreateTime,jdbcType=TIMESTAMP},
+		#{rupdateTime,jdbcType=TIMESTAMP},
+		#{risUse,jdbcType=CHAR},
+		#{rmsgId,jdbcType=VARCHAR}, #{rcontent,jdbcType=VARCHAR},
+		#{rpraise,jdbcType=INTEGER}, #{rtread,jdbcType=INTEGER},
+		#{ruserId,jdbcType=VARCHAR},#{ruserName,jdbcType=VARCHAR},
+		#{buserId,jdbcType=VARCHAR},#{buserName,jdbcType=VARCHAR}
+		)
+	</insert>
+
+</mapper>

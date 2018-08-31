@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: DEMO-A
+  datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      host:
+      username: root
+      password: root
+      url:
+      tomcat:
+        max-active: 300
+        min-idle: 30
+        max-idle: 100
+        testWhileIdle: true
+        suspect-timeout: 60
+        time-between-eviction-runs-millis: 30000
+        min-evictable-idle-time-millis: 60000
+        default-auto-commit: true
+        remove-abandoned: true
+        remove-abandoned-timeout: 120
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info
+
+server:
+  port: 1131
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.system.dao.SystUserDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.SystUser">
+		<result column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="PWD" property="pwd" jdbcType="VARCHAR" />
+		<result column="PHONE" property="phone" jdbcType="VARCHAR" />
+		<result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="CHAR" />
+		<result column="QQ" property="qq" jdbcType="VARCHAR" />
+		<result column="WEIXIN" property="weixin" jdbcType="VARCHAR" />
+		<result column="SINA" property="sina" jdbcType="VARCHAR" />
+		<result column="FULL_NAME" property="fullName" jdbcType="VARCHAR" />
+		<result column="HEAD_IMG_URL" property="headImgUrl" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INTEGER" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="qq_Openid" property="qqOpenid" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getSystUserRecent" resultMap="BaseResultMap">
+		select * from SYST_USER t order by t.update_time desc limit 0,50
+	</select>
+	
+	<select id="selectSystUserByNameAndPwd" resultMap="BaseResultMap">
+		select * from SYST_USER t where t.user_name=#{userName} and t.pwd=#{pwd}
+	</select>
+	
+	<select id="selectSystUserByQQOpenId" resultMap="BaseResultMap">
+		select * from SYST_USER t where t.qq_Openid=#{qqOpenid}
+	</select>
+	
+	<insert id="insert" parameterType="com.pers.blog.bean.SystUser">
+		insert into SYST_USER (ID, CREATE_TIME, UPDATE_TIME,
+		USER_NAME, PWD, PHONE,
+		EMAIL, STATUS, QQ, WEIXIN,
+		SINA, FULL_NAME,HEAD_IMG_URL, age, sex, address, qq_Openid)
+		values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{userName,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{status,jdbcType=CHAR},
+		#{qq,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR},
+		#{sina,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{headImgUrl,jdbcType=VARCHAR}, 
+		#{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{qqOpenid,jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="updateSystUserByQQOpenId" parameterType="com.pers.blog.bean.SystUser">
+		update SYST_USER set 
+		UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},
+		USER_NAME=#{userName,jdbcType=VARCHAR},
+		HEAD_IMG_URL=#{headImgUrl,jdbcType=VARCHAR}, 
+		age=#{age,jdbcType=INTEGER},
+		sex=#{sex,jdbcType=VARCHAR},
+		address=#{address,jdbcType=VARCHAR}
+		where qq_Openid=#{qqOpenid,jdbcType=VARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>个性导航A1-1.0之简约版</title>
+<meta name="keywords" content="个性网址导航" />
+<meta name="description" content="本站是个性导航A1-1.0之简约版，提供网址导航，网站大全，网站登陆服务．" />
+<meta name="robots" content="all" />
+<meta name="author" content="http://a1.1.8096.org/" />
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<link rel="stylesheet" href="css/tab.css" type="text/css" media="all" />
+<link type="text/css" href="css/bg0.css" rel="stylesheet" id="mystyle" />
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script
+	src="http://s1.bdstatic.com/r/www/cache/global/js/BaiduHttps_20150714_zhanzhang.js"></script>
+
+<script>
+	$(function() {
+		window.onload = function() {
+			var $li = $('#tab_right li');
+			var $ul = $('#tab_content ul');
+
+			$li.mouseover(function() {
+				var $this = $(this);
+				var $t = $this.index();
+				$li.removeClass();
+				$this.addClass('current');
+				$ul.css('display', 'none');
+				$ul.eq($t).css('display', 'block');
+			})
+		}
+		hotWebsite();
+		createData('11', 'videoGame', 'l_tit4');
+		createData('12', 'firend', 'l_tit2');
+		createData('13', 'live', 'l_tit3');
+		createData('14', 'other', 'l_tit');
+		loadover();
+
+	});
+
+	function loadover() {
+		setTimeout(function() {
+			$(".shadow").fadeOut("slow");
+			$(".loadding").fadeOut("slow");
+		}, 1000);
+	}
+
+	function hotWebsite() {//推荐
+		$
+				.ajax({
+					url : "index/hotWebsite",
+					type : "post",
+					dataType : "json",
+					data : "",
+					success : function(data) {//recommend
+						var html = "<ul class=\"Urlist2 p5 f14\">";
+						if (data.data != null && data.data.length > 0) {
+							for (var i = 0; i < data.data.length; i++) {
+								html += "<li><a href=\""+data.data[i].webSite+"\" target=\"_blank\">"
+										+ data.data[i].name + "</a></li>";
+							}
+						}
+						html += "</ul>";
+						$("#recommend").append(html);
+					}
+				});
+
+	}
+
+	function createData(type, lableId, className) {//影视游戏
+		$
+				.ajax({
+					url : "index/getWebsiteInfo",
+					type : "post",
+					dataType : "json",
+					data : "type=" + type,
+					success : function(data) {//recommend
+						if (data.data != null && data.data.length > 0) {
+							var html = "";
+							for (var i = 0; i < data.data.length; i++) {
+								html += "<div class=\"Bendili f14\">";
+								html += "<div class=\"l fb "+className+"\">"
+										+ data.data[i].pName + "</div>";
+								html += "<ul class=\"Urlist\">";
+
+								if (data.data[i].websiteInfos != null
+										&& data.data[i].websiteInfos.length > 0) {
+									for (var j = 0; j < data.data[i].websiteInfos.length; j++) {
+										html += "<li>| <a href=\""+data.data[i].websiteInfos[j].webSite+"\" title=\""+data.data[i].websiteInfos[j].name+"\" target=\"_blank\">"
+												+ data.data[i].websiteInfos[j].name
+												+ "</a></li>";
+									}
+								}
+								html += "</ul>";
+								html += "<span class=\"lr\"><a href=\"daohang/shipin/\" title=\"\" target=\"_blank\">更多>></a></span>";
+								html += "</div>";
+							}
+						}
+
+						$("#" + lableId).append(html);
+					}
+				});
+	}
+
+	function checkHttps() {
+		BaiduHttps.useHttps();
+	};
+	function gowhere1(formname) {
+		var data = BaiduHttps.useHttps();
+		var url;
+		if (formname.myselectvalue.value == "0") {
+			url = data.s == 0 ? "http://www.baidu.com/baidu"
+					: 'https://www.baidu.com/baidu' + '?ssl_s=1&ssl_c'
+							+ data.ssl_code;
+			document.search_form1.tn.value = "SE_zzsearchcode_shhzc78w";
+			formname.method = "get";
+		}
+		if (formname.myselectvalue.value == "1") {
+			document.search_form1.tn.value = "SE_zzsearchcode_shhzc78w";
+			document.search_form1.ct.value = "134217728";
+			document.search_form1.lm.value = "-1";
+			url = "http://mp3.baidu.com/m";
+		}
+		if (formname.myselectvalue.value == "4") {
+			document.search_form1.tn.value = "SE_zzsearchcode_shhzc78w";
+			document.search_form1.cl.value = "2";
+			document.search_form1.rn.value = "20";
+			url = "http://news.baidu.com/ns";
+		}
+		if (formname.myselectvalue.value == "5") {
+			document.search_form1.tn.value = "SE_zzsearchcode_shhzc78w";
+			document.search_form1.ct.value = "201326592";
+			document.search_form1.cl.value = "2";
+			document.search_form1.lm.value = "-1";
+			url = "http://image.baidu.com/i";
+		}
+		if (formname.myselectvalue.value == "6") {
+			document.search_form1.tn.value = "SE_zzsearchcode_shhzc78w";
+			document.search_form1.ct.value = "352321536";
+			document.search_form1.rn.value = "10";
+			document.search_form1.lm.value = "65536";
+			url = "http://tieba.baidu.com";
+		}
+		formname.action = url;
+		return true;
+	}
+</script>
+</head>
+<body>
+	<div class="shadow"></div>
+	<div class="loadding"></div>
+	<div class="Toph">
+		<div class="wrapper">
+			<div class="TopTime f14">
+				<span id="thetime"></span>
+				<script>
+					setInterval(
+							"thetime.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",
+							1000);
+				</script>
+			</div>
+			<div class="Tophr">
+				<a href="#" class="btn-slide" title="更换皮肤"><img
+					src="image/huan.png" /></a>
+			</div>
+			<div class="Tophr">
+				<a href="javascript:void(0)" onclick="SetHome(this,window.location)">设为首页</a>
+				| <a href="javascript:void(0)"
+					onclick="shoucang(document.title,window.location)">我的收藏</a>
+			</div>
+		</div>
+	</div>
+	<div class="bg">
+		<div class="wrapper">
+			<div id="topbar">
+				<div class="nav f14">
+					<a href="/" title="个性导航A1-1.0之简约版"><span
+						class="logo mousestyle"></span></a>
+				</div>
+				<div class="Tianqi">
+					<iframe width="420" scrolling="no" height="50" frameborder="0"
+						allowtransparency="true"
+						src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=3"></iframe>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<div style="margin: 35px 0 35px 85px;">
+				<form onsubmit="return gowhere1(this)" target="_blank"
+					name="search_form1" method="get" action="http://www.baidu.com/baidu">
+					<table width="100%" height="80" cellspacing="0" cellpadding="0"
+						border="0" style="font-family: 宋体">
+						<tbody>
+							<tr>
+								<td>
+									<table width="144%" height="80" cellspacing="0" cellpadding="0"
+										border="0">
+										<input type="hidden" value="0" name="myselectvalue"> 
+										<input type="hidden" value="utf-8" name="ie"> 
+										<input type="hidden" name="tn" value="SE_zzsearchcode_shhzc78w">
+										<input type="hidden" name="ct"> 
+										<input type="hidden" name="lm"> 
+										<input type="hidden" name="cl">
+										<input type="hidden" name="rn">
+										<tbody>
+											<tr>
+												<td width="8%" valign="bottom">
+													<div align="center">
+														<a href="https://www.baidu.com/" target="_blank">
+															<img border="0" style="position: relative;top:18px;" align="bottom" width="150" height="90" alt="Baidu" src="image/baidu.png">
+														</a>
+													</div>
+												</td>
+												<td width="92%" valign="bottom">
+													<input type="radio" value="0" onclick="javascript:this.form.myselectvalue.value=4;"	name="myselect"> 
+													<font color="#0000cc" class="lable">新闻</font>
+													<input type="radio" value="0" onclick="javascript:this.form.myselectvalue.value=0;" name="myselect" checked=""> 
+													<span class="f12">
+														<font color="#0000cc" class="lable">网页</font>
+													</span> 
+													<input type="radio" value="1" onclick="javascript:this.form.myselectvalue.value=1;" name="myselect"> 
+													<span class="f12">
+														<font color="#0000cc" class="lable">音乐</font>
+													</span> 
+													<input type="radio" value="0" onclick="javascript:this.form.myselectvalue.value=6;" name="myselect"> 
+													<font color="#0000cc" class="lable">贴吧</font>
+													<input type="radio" value="0" onclick="javascript:this.form.myselectvalue.value=5;" name="myselect"> 
+													<font color="#0000cc" class="lable">图片</font>
+													<table width="100%" cellspacing="0" cellpadding="0" border="0" align="right">
+														<tbody>
+															<tr>
+																<td style="padding-top: 10px;">
+																	<font>
+																		<input id="word" type="text" class="search-kw" name="word" onfocus="checkHttps">
+																	</font> 
+																	<input type="submit" class="search-btn" value="搜一下">
+																</td>
+																<td><br></td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td width="8%"></td>
+												<td width="92%"></td>
+											</tr>
+											<tr>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+			<!--搜索代码结束-->
+			<div class="clear"></div>
+			<div class="clear mt10"></div>
+			<div id="content_right">
+				<div class="border1" style="height: 280px;">
+					<ul id="tab_right">
+						<li class="current"><div>头条</div></li>
+						<li><div>社会</div></li>
+						<li><div>娱乐</div></li>
+						<li><div>军情</div></li>
+					</ul>
+					<div id="tab_content">
+						<ul style="display: block; padding: 10px 10px;">
+							<a href="http://www.lanrenzhijia.com/tab">tab标签</a>
+						</ul>
+						<ul style="display: none; padding: 10px 10px;">
+							<a href="http://www.lanrenzhijia.com/service">qq在线客服代码</a>
+						</ul>
+						<ul style="display: none; padding: 10px 10px;">
+							<a href="http://www.lanrenzhijia.com/js/css3">css3</a>
+						</ul>
+						<ul style="display: none; padding: 10px 10px;">
+							<a href="http://www.lanrenzhijia.com/js/css3">css3</a>
+						</ul>
+					</div>
+				</div>
+				<div class="border1 mt10" style="height: 266px;">
+					<div class="title9 f16 ">
+						<h3>实用工具</h3>
+					</div>
+					<ul class="Urlistb f14">
+						<li><a href="https://www.alipay.com/">支 付 宝</a></li>
+						<li><a href="https://www.tenpay.com/">财 付 通</a></li>
+						<li><a href="http://www.kuaidi100.com/">快递查询</a></li>
+						<li><a href="http://www.weather.com.cn/forecast/">天气预报</a></li>
+						<li><a href="http://fanyi.youdao.com/">在线翻译</a></li>
+						<li><a href="http://www.1234568.com/naozhong/">在线闹钟</a></li>
+						<li><a href="http://map.baidu.com/">百度地图</a></li>
+						<li><a href="http://www.1234568.com/anquanqi/">安全期查询</a></li>
+						<li><a href="http://www.1234568.com/cha7/">生男生女</a></li>
+						<li><a href="http://www.1234568.com/cha8/">标准体重</a></li>
+						<li><a href="http://www.1234568.com/time/">时间校对</a></li>
+						<li><a href="http://www.ip138.com/">ip快速查</a></li>
+						<li><a href="http://www.1234568.com/cha1/">万年历</a></li>
+						<li><a href="http://www.1234568.com/cha2/">黄道吉日</a></li>
+						<li><a href="http://www.1234568.com/cha11/">星座配对</a></li>
+						<li><a href="http://www.1234568.com/cha3/">手机位置</a></li>
+						<li><a href="http://www.1234568.com/cha5/">身份证号</a></li>
+						<li><a href="http://www.1234568.com/cha12/">违章查询</a></li>
+						<li><a href="http://www.1234568.com/cha6/">新华字典</a></li>
+						<li><a href="http://fapiao.youshang.com/">发票查询</a></li>
+					</ul>
+				</div>
+				<div class="border1 mt10"
+					style="height: 80px; border: 1px solid #000; width: 100%;">wqw</div>
+			</div>
+			<div id="content" class="mt10">
+				<div class="border1">
+					<div class="title1 f16 ">
+						<span>1F</span>国内名站
+					</div>
+					<div id="recommend"></div>
+				</div>
+				<!--loop begin-->
+				<div class="border1">
+					<div class="title5 f16 ">
+						<span>2F</span>
+						<h3>影视游戏</h3>
+					</div>
+					<div id="videoGame"></div>
+				</div>
+				<!--loop begin-->
+				<div class="border1">
+					<div class="title3 f16 ">
+						<span>3F</span>
+						<h3>休闲交友</h3>
+					</div>
+					<div id="firend"></div>
+
+				</div>
+				<!--loop begin-->
+				<div class="border1">
+					<div class="title4 f16 ">
+						<span>4F</span>
+						<h3>日常生活</h3>
+					</div>
+					<div id="live"></div>
+				</div>
+				<div class="border1">
+					<div class="title2 f16 ">
+						<span>5F</span>
+						<h3>其它导航</h3>
+					</div>
+					<div id="other"></div>
+				</div>
+			</div>
+			<div style="clear: both;"></div>
+			<div class="mt10">
+				<div class="bbox1 l border4">
+					<div class="title10 f16 ">
+						<h3>娱乐休闲</h3>
+					</div>
+					<ul class="Urlistb f14">
+						<li><a href="http://www.kugou.com/" target="_blank">酷狗音乐</a></li>
+						<li><a href="http://www.91hehe.com/get/j_movie/"
+							target="_blank">搞笑视频</a></li>
+						<li><a href="http://www.dy6d.com/" target="_blank">电影领地</a></li>
+						<li><a href="http://www.baojingqi.net/" target="_blank">游戏视频</a></li>
+						<li><a href="http://astro.sina.com.cn/" target="_blank">新浪星座</a></li>
+						<li><a href="http://www.csclx.com/" target="_blank">明星套图</a></li>
+						<li><a href="http://www.dmtt.net/" target="_blank">动漫天堂</a></li>
+						<li><a href="http://www.y4dao.com/" target="_blank">影视论坛</a></li>
+						<li><a href="http://www.hnwtv.com/tyzb/zuqiuzhibo/"
+							target="_blank">足球直播</a></li>
+						<li><a href="http://www.5k6b.com/" target="_blank">我看乐吧</a></li>
+						<li><a href="http://www.76mtv.com/" target="_blank">齐乐战歌</a></li>
+						<li><a href="http://www.ymqs.com/" target="_blank">一鸣奇书</a></li>
+						<li><a href="http://www.paosf.com/" target="_blank">泡搜服网</a></li>
+						<li><a href="http://www.pengfu.com/" target="_blank">捧腹笑话</a></li>
+						<li><a href="http://star.6k.com/" target="_blank">明星大全</a></li>
+						<li><a href="http://www.bloggao.com/" target="_blank">博告读书</a></li>
+						<li><a href="http://www.tianxiananren.com/" target="_blank">天下男人</a></li>
+						<li><a href="http://www.kx388.com/" target="_blank">开心文学</a></li>
+						<li><a href="http://www.no4media.com/" target="_blank">第四媒体</a></li>
+					</ul>
+				</div>
+				<div class="bbox2 l border4">
+					<div class="title11 f16 ">
+						<h3>生活服务</h3>
+					</div>
+					<ul class="Urlistb f14">
+						<li><a href="http://life.taobao.com/market/life/czk.php">话费充值</a></li>
+						<li><a href="http://www.huaguo.net/">鲜花速递</a></li>
+						<li><a href="http://www.58zhongyi.com/">搬家公司</a></li>
+						<li><a href="http://www.bjsjs.net/">保洁公司</a></li>
+						<li><a href="http://www.hf110.com/">开锁公司</a></li>
+						<li><a href="http://www.fengling.net/">在线听书</a></li>
+						<li><a href="http://www.syhuiding.net/">租车服务</a></li>
+						<li><a href="http://www.cqhlkg.com/">装修公司</a></li>
+						<li><a href="http://www.qcwzdh.com/">电脑维修</a></li>
+						<li><a href="http://www.cityecity.com/">婚庆公司</a></li>
+						<li><a href="http://www.cityecity.com/hunshasheying/">婚纱摄影</a></li>
+						<li><a href="http://www.kuapai.com/" target="_blank">夸派点评</a></li>
+						<li><a href="http://www.tvmao.com/">电视预告</a></li>
+						<li><a href="http://www.hnwtv.com/">电视直播</a></li>
+						<li><a href="http://www.999fcw.com/">医院大全</a></li>
+						<li><a href="http://www.liebiao.com/shenghuo/">列表生活</a></li>
+						<li><a href="http://www.5n.org.cn/">网络导购</a></li>
+						<li><a href="http://flight.qunar.com/">机票航班</a></li>
+						<li><a href="http://www.1234568.com/fangjiaanpai/">放假安排</a></li>
+					</ul>
+				</div>
+				<!--通用通宽开始-->
+				<div class="clear mt10"></div>
+				<div class="border1">
+					<div class="title6 f16 ">
+						<span>联系QQ：123456</span>
+						<h3>友情链接</h3>
+					</div>
+					<ul class="Urlist_w f12">
+						<li class="w84"><a href="http://www.600it.com/"
+							target="_blank">六百源码</a></li>
+					</ul>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<div class="clear mt10"></div>
+
+		<div id="bottom" class="mt10 copyright-border">
+			<div class="copyright">
+				个性化网址导航简约版. 统计代码 <a href="http://www.600it.com/" target="_blank">源码下载</a>
+				<a href="/plug/book/" target="_blank">申请收录</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

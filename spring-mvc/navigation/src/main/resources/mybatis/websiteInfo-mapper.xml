@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maot.navigation.dao.WebsiteInfoDao">
+	<resultMap id="BaseResultMap" type="com.maot.navigation.entity.WebsiteInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="web_site" property="webSite" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="daily_hits" property="dailyHits" jdbcType="INTEGER" />
+		<result column="count_hits" property="countHits" jdbcType="INTEGER" />
+		<result column="small_image_url" property="smallImageUrl"
+			jdbcType="VARCHAR" />
+		<result column="big_image_url" property="bigImageUrl" jdbcType="VARCHAR" />
+		<result column="featured_first" property="featuredFirst"
+			jdbcType="VARCHAR" />
+		<result column="sort" property="sort" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, update_time, name, web_site, type,
+		daily_hits,
+		count_hits, small_image_url,
+		big_image_url, featured_first,
+		sort, status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from website_info
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		website_info
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.maot.navigation.entity.WebsiteInfo">
+		insert into website_info (id,
+		create_time, update_time,
+		name, web_site, type,
+		daily_hits, count_hits,
+		small_image_url,
+		big_image_url, featured_first, sort,
+		status)
+		values
+		(#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{name,jdbcType=VARCHAR},
+		#{webSite,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+		#{dailyHits,jdbcType=INTEGER}, #{countHits,jdbcType=INTEGER},
+		#{smallImageUrl,jdbcType=VARCHAR},
+		#{bigImageUrl,jdbcType=VARCHAR},
+		#{featuredFirst,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER},
+		#{status,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.maot.navigation.entity.WebsiteInfo">
+		insert into website_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="webSite != null">
+				web_site,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="dailyHits != null">
+				daily_hits,
+			</if>
+			<if test="countHits != null">
+				count_hits,
+			</if>
+			<if test="smallImageUrl != null">
+				small_image_url,
+			</if>
+			<if test="bigImageUrl != null">
+				big_image_url,
+			</if>
+			<if test="featuredFirst != null">
+				featured_first,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="webSite != null">
+				#{webSite,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="dailyHits != null">
+				#{dailyHits,jdbcType=INTEGER},
+			</if>
+			<if test="countHits != null">
+				#{countHits,jdbcType=INTEGER},
+			</if>
+			<if test="smallImageUrl != null">
+				#{smallImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="bigImageUrl != null">
+				#{bigImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="featuredFirst != null">
+				#{featuredFirst,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.maot.navigation.entity.WebsiteInfo">
+		update website_info
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="webSite != null">
+				web_site = #{webSite,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="dailyHits != null">
+				daily_hits = #{dailyHits,jdbcType=INTEGER},
+			</if>
+			<if test="countHits != null">
+				count_hits = #{countHits,jdbcType=INTEGER},
+			</if>
+			<if test="smallImageUrl != null">
+				small_image_url = #{smallImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="bigImageUrl != null">
+				big_image_url = #{bigImageUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="featuredFirst != null">
+				featured_first = #{featuredFirst,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.maot.navigation.entity.WebsiteInfo">
+		update
+		website_info
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		name =
+		#{name,jdbcType=VARCHAR},
+		web_site = #{webSite,jdbcType=VARCHAR},
+		type =
+		#{type,jdbcType=VARCHAR},
+		daily_hits = #{dailyHits,jdbcType=INTEGER},
+		count_hits = #{countHits,jdbcType=INTEGER},
+		small_image_url =
+		#{smallImageUrl,jdbcType=VARCHAR},
+		big_image_url =
+		#{bigImageUrl,jdbcType=VARCHAR},
+		featured_first =
+		#{featuredFirst,jdbcType=VARCHAR},
+		sort = #{sort,jdbcType=INTEGER},
+		status = #{status,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="getListByType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from website_info
+		where type = #{type,jdbcType=VARCHAR} and status='1' order by sort
+	</select>
+	
+	<select id="getHotWeisite" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from website_info
+		where featured_first='1' and status='1'
+	</select>
+</mapper>

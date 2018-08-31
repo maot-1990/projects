@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.system.dao.SystemInfoDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.SystemInfo">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="system_create_time" property="systemCreateTime"
+			jdbcType="TIMESTAMP" />
+		<result column="ip_count" property="ipCount" jdbcType="INTEGER" />
+		<result column="total_visits" property="totalVisits" jdbcType="INTEGER" />
+		<result column="site_english_name" property="siteEnglishName"
+			jdbcType="VARCHAR" />
+		<result column="site_name" property="siteName" jdbcType="VARCHAR" />
+		<result column="site_url" property="siteUrl" jdbcType="VARCHAR" />
+		<result column="record_number" property="recordNumber"
+			jdbcType="VARCHAR" />
+		<result column="site_owner" property="siteOwner" jdbcType="VARCHAR" />
+		<result column="owner_qq" property="ownerQq" jdbcType="VARCHAR" />
+		<result column="owner_weixin" property="ownerWeixin" jdbcType="VARCHAR" />
+		<result column="owner_mail" property="ownerMail" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_time, system_create_time, ip_count,
+		total_visits,
+		site_english_name, site_name,
+		site_url, record_number,
+		site_owner, owner_qq, owner_weixin, owner_mail
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from system_info
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		system_info
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.SystemInfo">
+		insert into system_info (id,
+		create_time, system_create_time,
+		ip_count, total_visits,
+		site_english_name,
+		site_name, site_url, record_number,
+		site_owner,
+		owner_qq, owner_weixin,
+		owner_mail)
+		values (#{id,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{systemCreateTime,jdbcType=TIMESTAMP},
+		#{ipCount,jdbcType=INTEGER},
+		#{totalVisits,jdbcType=INTEGER}, #{siteEnglishName,jdbcType=VARCHAR},
+		#{siteName,jdbcType=VARCHAR}, #{siteUrl,jdbcType=VARCHAR},
+		#{recordNumber,jdbcType=VARCHAR},
+		#{siteOwner,jdbcType=VARCHAR},
+		#{ownerQq,jdbcType=VARCHAR}, #{ownerWeixin,jdbcType=VARCHAR},
+		#{ownerMail,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pers.blog.bean.SystemInfo">
+		insert into system_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="systemCreateTime != null">
+				system_create_time,
+			</if>
+			<if test="ipCount != null">
+				ip_count,
+			</if>
+			<if test="totalVisits != null">
+				total_visits,
+			</if>
+			<if test="siteEnglishName != null">
+				site_english_name,
+			</if>
+			<if test="siteName != null">
+				site_name,
+			</if>
+			<if test="siteUrl != null">
+				site_url,
+			</if>
+			<if test="recordNumber != null">
+				record_number,
+			</if>
+			<if test="siteOwner != null">
+				site_owner,
+			</if>
+			<if test="ownerQq != null">
+				owner_qq,
+			</if>
+			<if test="ownerWeixin != null">
+				owner_weixin,
+			</if>
+			<if test="ownerMail != null">
+				owner_mail,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="systemCreateTime != null">
+				#{systemCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ipCount != null">
+				#{ipCount,jdbcType=INTEGER},
+			</if>
+			<if test="totalVisits != null">
+				#{totalVisits,jdbcType=INTEGER},
+			</if>
+			<if test="siteEnglishName != null">
+				#{siteEnglishName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteName != null">
+				#{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteUrl != null">
+				#{siteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="recordNumber != null">
+				#{recordNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="siteOwner != null">
+				#{siteOwner,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerQq != null">
+				#{ownerQq,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerWeixin != null">
+				#{ownerWeixin,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerMail != null">
+				#{ownerMail,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateSystemInfoVisitTimes" parameterType="com.pers.blog.bean.SystemInfo">
+		update system_info
+		<set>
+			<if test="ip != null">
+				ip_count = ip_count + 1,
+			</if>
+			<if test="times != null">
+				total_visits = total_visits + 1,
+			</if>
+			
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.pers.blog.bean.SystemInfo">
+		update system_info
+		<set>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="systemCreateTime != null">
+				system_create_time =
+				#{systemCreateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ipCount != null">
+				ip_count = #{ipCount,jdbcType=INTEGER},
+			</if>
+			<if test="totalVisits != null">
+				total_visits = #{totalVisits,jdbcType=INTEGER},
+			</if>
+			<if test="siteEnglishName != null">
+				site_english_name = #{siteEnglishName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteName != null">
+				site_name = #{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteUrl != null">
+				site_url = #{siteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="recordNumber != null">
+				record_number = #{recordNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="siteOwner != null">
+				site_owner = #{siteOwner,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerQq != null">
+				owner_qq = #{ownerQq,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerWeixin != null">
+				owner_weixin = #{ownerWeixin,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerMail != null">
+				owner_mail = #{ownerMail,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pers.blog.bean.SystemInfo">
+		update system_info
+		set create_time = #{createTime,jdbcType=TIMESTAMP},
+		system_create_time
+		= #{systemCreateTime,jdbcType=TIMESTAMP},
+		ip_count =
+		#{ipCount,jdbcType=INTEGER},
+		total_visits =
+		#{totalVisits,jdbcType=INTEGER},
+		site_english_name =
+		#{siteEnglishName,jdbcType=VARCHAR},
+		site_name =
+		#{siteName,jdbcType=VARCHAR},
+		site_url = #{siteUrl,jdbcType=VARCHAR},
+		record_number = #{recordNumber,jdbcType=VARCHAR},
+		site_owner =
+		#{siteOwner,jdbcType=VARCHAR},
+		owner_qq = #{ownerQq,jdbcType=VARCHAR},
+		owner_weixin = #{ownerWeixin,jdbcType=VARCHAR},
+		owner_mail =
+		#{ownerMail,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.system.dao.SystUserLogDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.SystUserLog">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="create_Time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_Time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="user_Name" property="userName" jdbcType="VARCHAR" />
+		<result column="user_Id" property="userId" jdbcType="VARCHAR" />
+		<result column="ip" property="ip" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_Time, update_Time, user_Name, user_Id, ip, address
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from syst_user_log
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getSystUserLogCountByIp" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select
+		count(*)
+		from syst_user_log
+		where ip = #{ip,jdbcType=VARCHAR}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from syst_user_log
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.SystUserLog">
+		insert into syst_user_log (id, create_Time, update_Time,
+		user_Name, user_Id, ip,
+		address)
+		values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{userName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pers.blog.bean.SystUserLog">
+		insert into syst_user_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="createTime != null">
+				create_Time,
+			</if>
+			<if test="updateTime != null">
+				update_Time,
+			</if>
+			<if test="userName != null">
+				user_Name,
+			</if>
+			<if test="userId != null">
+				user_Id,
+			</if>
+			<if test="ip != null">
+				ip,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				#{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pers.blog.bean.SystUserLog">
+		update syst_user_log
+		<set>
+			<if test="createTime != null">
+				create_Time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_Time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userName != null">
+				user_Name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				user_Id = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="ip != null">
+				ip = #{ip,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pers.blog.bean.SystUserLog">
+		update syst_user_log
+		set create_Time = #{createTime,jdbcType=TIMESTAMP},
+		update_Time = #{updateTime,jdbcType=TIMESTAMP},
+		user_Name = #{userName,jdbcType=VARCHAR},
+		user_Id = #{userId,jdbcType=VARCHAR},
+		ip = #{ip,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

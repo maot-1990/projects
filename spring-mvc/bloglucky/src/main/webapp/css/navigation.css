@@ -1,0 +1,600 @@
+@charset "utf-8";
+/* -------------------------------------------------
+ * reset css
+ * copyright: www.w3cplus.com 
+ * author: 为之
+ * -------------------------------------------------
+*/
+html {
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	text-align: left;
+	color: #404040;
+	font: 12px/1.5 Helvetica, arial;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, form {
+	margin: 0;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+	-ms-interpolation-mode: bicubic;
+}
+
+a {
+	text-decoration: none;
+	color: #29B4F0;
+}
+
+a:focus {
+	outline: thin dotted;
+}
+
+a:hover {
+	color: #017CB9;
+	text-decoration: underline;
+}
+/* hn */
+h1 {
+	font-size: 16px;
+	line-height: 36px;
+}
+
+h2 {
+	font-size: 14px;
+	line-height: 30px;
+}
+
+h3 {
+	line-height: 24px;
+}
+
+h3, h4, h5, h6 {
+	font-size: 12px;
+}
+/* ul ol dl */
+ul, li, ol {
+	margin: 0;
+	padding: 0;
+	list-style: none outside none;
+}
+
+ul.has-style li, ol li {
+	margin-left: 25px;
+}
+
+ul.has-style li {
+	list-style: disc;
+}
+
+ol li {
+	list-style: decimal;
+}
+
+ul.inline-style li {
+	float: left;
+	display: inline;
+}
+
+dl {
+	margin-bottom: 18px;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 0 0 9px;
+	padding: 0;
+}
+
+svg:not (:root ) {
+	overflow: hidden;
+}
+/* clearfix */
+.clearfix:before, .clearfix:after {
+	content: "";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+	overflow: hidden;
+}
+
+.clearfix {
+	zoom: 1;
+}
+/* -------------------------------------------------
+ * form
+ * -------------------------------------------------
+*/
+button, input, select, textarea {
+	font-family: tahoma;
+	font-size: 100%;
+	margin: 0;
+	outline: 0 none;
+	vertical-align: baseline;
+	*vertical-align: middle;
+}
+
+textarea {
+	overflow: auto;
+	vertical-align: top;
+	resize: none;
+}
+
+button, input {
+	line-height: normal;
+}
+
+button, html input[type="button"], input[type="reset"], input[type="submit"],
+	.submit-btn {
+	-webkit-appearance: button;
+	cursor: pointer;
+	*overflow: visible;
+}
+
+button[disabled], input[disabled], .disable {
+	cursor: default;
+}
+
+input[type="checkbox"], input[type="radio"], .form-radio, .form-checkbox
+	{
+	box-sizing: border-box;
+	padding: 0;
+	*height: 13px;
+	*width: 13px;
+}
+
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px 18px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+	border: 0;
+	padding: 0;
+	white-space: normal;
+	*margin-left: -7px;
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+/* -------------------------------------------------
+ * css3 & html5
+ * -------------------------------------------------
+*/
+/* html5 */
+article, aside, details, figcaption, figure, footer, header, hgroup, nav,
+	section, summary {
+	display: block;
+}
+
+audio, canvas, video {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+}
+
+audio:not ([controls] ){
+	display: none;
+	height: 0;
+}
+
+nav ul, nav ol {
+	list-style: none;
+	list-style-image: none;
+}
+
+input[type="search"] {
+	-webkit-appearance: textfield;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration
+	{
+	-webkit-appearance: none;
+}
+
+:-moz-placeholder, ::-webkit-input-placeholder {
+	color: #999;
+}
+/* -------------------------------------------------
+ * 非常见标签
+ * -------------------------------------------------
+*/
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+blockquote {
+	margin: 1em 40px;
+}
+
+dfn {
+	font-style: italic;
+}
+
+mark {
+	background: #ff0;
+	color: #444;
+}
+
+code, kbd, pre, samp {
+	font-family: monospace, serif;
+	_font-family: 'courier new', monospace;
+	font-size: 1em;
+}
+
+pre {
+	margin: 1em 0;
+	white-space: pre;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+q {
+	quotes: none;
+}
+
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+small {
+	font-size: 80%;
+}
+
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+/* -------------------------------------------------
+ * common
+ * -------------------------------------------------
+*/
+.page {
+	text-align: left;
+	padding-top: 40px;
+}
+
+.wrap_top_nav {
+	background-color: #333;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1)
+		inset;
+	height: 40px;
+}
+
+#top_nav {
+	width: 1000px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#top_nav a {
+	font-size: 16px;
+	line-height: 40px;
+	float: left;
+	margin-right: 20px;
+	color: #999;
+	text-decoration: none;
+}
+
+#top_nav a:hover {
+	color: #fff;
+}
+
+#top_nav li:nth-child(1) a {
+	background-image:
+		url(http://www.w3cplus.com/sites/all/themes/marvin/logo.png);
+	background-position: 0 -12px;
+	background-repeat: no-repeat;
+	background-size: 68px 60px;
+	padding-left: 74px;
+	color: #fff;
+	width: 74px;
+	overflow: hidden;
+}
+
+#read {
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-family: '����';
+}
+
+#header {
+	text-align: center;
+}
+
+#header .white {
+	color: #fff;
+}
+
+#header .blank {
+	color: #444;
+}
+
+#header h1 {
+	font-size: 24px;
+}
+
+#header h2 {
+	font-weight: normal;
+}
+
+#ad_w3cplus {
+	width: 750px;
+	margin: 100px auto;
+	text-align: center;
+}
+
+#ad_w3cplus .grid-ad {
+	float: left;
+}
+
+/*任务一：引入本地字体文件*/
+@font-face {
+	font-family: 'sansationregular';
+	src:
+		url('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.eot');
+	src:
+		url('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.eot?#iefix')
+		format('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/embedded-opentype'
+		),
+		url('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.woff')
+		format('woff'),
+		url('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.ttf')
+		format('truetype'),
+		url('http://www.w3cplus.com/demo/css3/3DAnimationDropdownMenu/sansation_regular-webfont.svg#sansationregular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	background-color: #edecec;
+}
+
+/* basic menu styles */
+.nav-menu {
+	display: block;
+	/* background: #74adaa;*/
+	width: 950px;
+	margin: 15px auto 15px;
+}
+
+.nav-menu>li {
+	display: inline;
+	float: left;
+	border-right: 1px solid #94c0be;
+}
+
+.nav-menu>li:last-child {
+	border-right: none;
+}
+
+.nav-menu li a {
+	color: #fff;
+	display: block;
+	text-decoration: none;
+	/*调用本地字体*/
+	font-family: sansationregular;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	text-transform: capitalize;
+	overflow: visible;
+	line-height: 20px;
+	font-size: 20px;
+	padding: 15px 30px 15px 31px;
+}
+
+.three-d {
+	/* 任务三、设置3D舞台布景 */
+	-webkit-perspective: 200px;
+	-moz-perspective: 200px;
+	-ms-perspective: 200px;
+	-o-perspective: 200px;
+	perspective: 200px;
+	/*任务四、设置3D舞台布景过渡效果*/
+	-webkit-transition: all .07s linear;
+	-moz-transition: all .07s linear;
+	-ms-transition: all .07s linear;
+	-o-transition: all .07s linear;
+	transition: all .7s linear;
+	position: relative;
+}
+
+.three-d:not (.active ):hover {
+	cursor: pointer;
+}
+
+/*任务五、给不是当前状态的3D舞台的悬浮与聚焦状态设置变形效果*/
+.three-d:not (.active ):hover .three-d-box, .three-d:not (.active ):focus .three-d-box
+	{
+	-wekbit-transform: translateZ(-25px) rotateX(90deg);
+	-moz-transform: translateZ(-25px) rotateX(90deg);
+	-o-transform: translateZ(-25px) rotateX(90deg);
+	-ms-transform: translateZ(-25px) rotateX(90deg);
+	transform: translateZ(-25px) rotateX(90deg);
+
+	/*    -webkit-transform:rotateX(90deg) translatez(-25px);*/
+
+	/*   -webkit-transform:rotatex(90deg);*/
+}
+
+.three-d-box {
+	/*任务六、给3D舞台中“.three-d-box”设置过渡与变形效果*/
+	-webkit-transition: all .3s ease-out;
+	-moz-transition: all .3s ease-out;
+	-ms-transition: all .3s ease-out;
+	-o-transition: all .3s ease-out;
+	transition: all .3s ease-out;
+	-webkit-transform: translatez(-25px);
+	-moz-transform: translatez(-25px);
+	-ms-transform: translatez(-25px);
+	-o-transform: translatez(-25px);
+	transform: translatez(-25px);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/*任务七、给导航设置3D前，与3D后变形效果*/
+.front {
+	-webkit-transform: rotatex(0deg) translatez(25px);
+	-moz-transform: rotatex(0deg) translatez(25px);
+	-ms-transform: rotatex(0deg) translatez(25px);
+	-o-transform: rotatex(0deg) translatez(25px);
+	transform: rotatex(0deg) translatez(25px);
+}
+
+.back {
+	-webkit-transform: rotatex(-90deg) translatez(25px);
+	-moz-transform: rotatex(-90deg) translatez(25px);
+	-ms-transform: rotatex(-90deg) translatez(25px);
+	-o-transform: rotatex(-90deg) translatez(25px);
+	transform: rotatex(-90deg) translatez(25px);
+	color: #FFE7C4;
+}
+
+.front, .back {
+	/*          border:1px solid red;*/
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #74adaa;
+	padding: 15px 30px 15px 31px;
+	color: white;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/*任务八、设置导航当前状态与悬浮状态下的背景效果*/
+.nav-menu li .active .front, .nav-menu li .active .back, .nav-menu li a:hover .front,
+	.nav-menu li a:hover .back {
+	background-color: #51938f;
+	-webkit-background-size: 5px 5px;
+	background-size: 5px 5px;
+	background-position: 0 0, 30px 30px;
+	background-image: -webit-linear-gradient(45deg, #478480 25%, transparent 25%, transparent
+		75%, #478480 75%, #478480),
+		linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480);
+	background-image: -moz-linear-gradient(45deg, #478480 25%, transparent 25%, transparent
+		75%, #478480 75%, #478480),
+		linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480);
+	background-image: -ms-linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%
+		, #478480 75%, #478480),
+		linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480);
+	background-image: -o-linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480),
+		linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480);
+	background-image: linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480),
+		linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%,
+		#478480 75%, #478480);
+}
+
+.nav-menu ul {
+	position: absolute;
+	text-align: left;
+	line-height: 40px;
+	font-size: 14px;
+	width: 200px;
+	-webkit-transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-ms-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
+	transition: all 0.3s ease-in;
+	-webkit-transform-origin: 0px 0px;
+	-moz-transform-origin: 0px 0px;
+	-ms-transform-origin: 0px 0px;
+	-o-transform-origin: 0px 0px;
+	transform-origin: 0px 0px;
+	-webkit-transform: rotateX(-90deg);
+	-moz-transform: rotateX(-90deg);
+	-ms-transform: rotateX(-90deg);
+	-o-transform: rotateX(-90deg);
+	transform: rotateX(-90deg);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+/*任务九、显示下拉导航菜单，并其设置一个变形效果*/
+.nav-menu>li:hover ul {
+	/*          display: block;*/
+	-webkit-transform: rotateX(0deg);
+	-moz-transform: rotateX(0deg);
+	-ms-transform: rotateX(0deg);
+	-o-transform: rotateX(0deg);
+	transform: rotateX(0deg);
+}

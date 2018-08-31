@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pers.blog.system.dao.MessageBoardDao">
+	<resultMap id="BaseResultMap" type="com.pers.blog.bean.MessageBoard">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="MSG_ID" property="msgId" jdbcType="VARCHAR" />
+		<result column="PRAISE" property="praise" jdbcType="DECIMAL" />
+		<result column="TREAD" property="tread" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="IS_USE" property="isUse" jdbcType="CHAR" />
+	</resultMap>
+	
+	<resultMap id="BaseResultMapVO" type="com.pers.blog.vo.MessageBoardVo">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="MSG_ID" property="msgId" jdbcType="VARCHAR" />
+		<result column="PRAISE" property="praise" jdbcType="DECIMAL" />
+		<result column="TREAD" property="tread" jdbcType="DECIMAL" />
+		<result column="TYPE" property="type" jdbcType="VARCHAR" />
+		<result column="IS_USE" property="isUse" jdbcType="CHAR" />
+		<result column="HEAD_IMG_URL" property="headImgUrl" jdbcType="CHAR" />
+		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		ID, CREATE_TIME, USER_NAME,USER_ID, UPDATE_TIME, CONTENT, MSG_ID,
+		PRAISE,TREAD,
+		TYPE,
+		IS_USE
+	</sql>
+	
+	<select id="getLeaveMessage" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from (select
+		<include refid="Base_Column_List" />
+		from MESSAGE_BOARD
+		where is_use='1' order by create_time desc) as pi
+		<![CDATA[ 
+		 limit 0,8
+		]]>
+	</select>
+	
+	<select id="getLeaveMessagePage" resultMap="BaseResultMapVO"
+		parameterType="com.pers.blog.util.SerachParam">
+		select * from (select
+		m.ID, m.CREATE_TIME, m.USER_NAME,m.USER_ID, m.UPDATE_TIME, m.CONTENT, m.MSG_ID,
+		m.PRAISE,m.TREAD,
+		m.TYPE,
+		m.IS_USE,s.HEAD_IMG_URL
+		from MESSAGE_BOARD m 
+		left join syst_user s on m.user_id=s.id
+		where is_use='1' 
+		
+		<if test="param.type != null">
+			and m.TYPE=#{param.type}
+		</if>
+		<if test="param.msgId != null">
+			and m.MSG_ID=#{param.msgId}
+		</if>
+		
+		order by create_time desc) as pi
+	</select>
+
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from MESSAGE_BOARD
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<update id="updateGlyphiconThumbs">
+		update MESSAGE_BOARD
+		<set>
+			update_time=sysdate(),
+			<if test="type == 1">
+				PRAISE = PRAISE+1,
+			</if>
+			<if test="type == 2">
+				TREAD = TREAD+1
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		MESSAGE_BOARD
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.pers.blog.bean.MessageBoard">
+		insert into MESSAGE_BOARD (ID,
+		CREATE_TIME, USER_NAME,USER_ID,
+		UPDATE_TIME, CONTENT, MSG_ID,
+		PRAISE,TREAD,
+		TYPE,
+		IS_USE)
+		values (#{id,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{userName,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=VARCHAR},
+		#{msgId,jdbcType=VARCHAR},
+		#{praise,jdbcType=DECIMAL},
+		#{tread,jdbcType=DECIMAL},
+		#{type,jdbcType=VARCHAR},
+		#{isUse,jdbcType=CHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pers.blog.bean.MessageBoard">
+		insert into MESSAGE_BOARD
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="userName != null">
+				USER_NAME,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="msgId != null">
+				MSG_ID,
+			</if>
+			<if test="praise != null">
+				PRAISE,
+			</if>
+			<if test="tread != null">
+				tread,
+			</if>
+			<if test="type != null">
+				TYPE,
+			</if>
+			<if test="isUse != null">
+				IS_USE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="msgId != null">
+				#{msgId,jdbcType=VARCHAR},
+			</if>
+			<if test="praise != null">
+				#{praise,jdbcType=DECIMAL},
+			</if>
+			<if test="tread != null">
+				#{tread,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="isUse != null">
+				#{isUse,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pers.blog.bean.MessageBoard">
+		update MESSAGE_BOARD
+		<set>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="userName != null">
+				USER_NAME = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="msgId != null">
+				MSG_ID = #{msgId,jdbcType=VARCHAR},
+			</if>
+			<if test="praise != null">
+				PRAISE = #{praise,jdbcType=DECIMAL},
+			</if>
+			<if test="tread != null">
+				TREAD = #{tread,jdbcType=DECIMAL},
+			</if>
+			<if test="type != null">
+				TYPE = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="isUse != null">
+				IS_USE = #{isUse,jdbcType=CHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pers.blog.bean.MessageBoard">
+		update
+		MESSAGE_BOARD
+		set CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		USER_NAME = #{userName,jdbcType=VARCHAR},
+		USER_ID = #{userId,jdbcType=VARCHAR},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		CONTENT =
+		#{content,jdbcType=VARCHAR},
+		MSG_ID = #{msgId,jdbcType=VARCHAR},
+		PRAISE
+		= #{praise,jdbcType=DECIMAL},
+		TREAD
+		= #{tread,jdbcType=DECIMAL},
+		TYPE = #{type,jdbcType=VARCHAR},
+		IS_USE
+		= #{isUse,jdbcType=CHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

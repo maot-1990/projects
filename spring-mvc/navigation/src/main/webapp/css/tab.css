@@ -1,0 +1,40 @@
+#tab_right {
+	overflow: hidden;
+	zoom: 1;
+	background: white;
+}
+
+#tab_right li {
+	float: left;
+	color: black;
+	height: 30px;
+	cursor: pointer;
+	line-height: 30px;
+	padding: 0 19.7px;
+	color: #666;
+	border-right: 1px solid #d5d5d5;
+}
+
+#tab_right li.current {
+	color: #000;
+	border-top: 2px solid #0c6ad4;
+}
+
+#tab_right_content {
+	border: 1px solid #000;
+	border-top-width: 0;
+}
+
+#tab_right_content ul {
+	line-height: 25px;
+	display: none;
+	margin: 0 30px;
+	padding: 10px 0;
+}
+.tab_tag{
+	float: right;
+	width: 1px;
+	overflow: hidden;
+	background-color: red;#d5d5d5;
+	height: 25px;
+}

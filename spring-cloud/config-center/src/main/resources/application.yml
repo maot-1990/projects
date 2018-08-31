@@ -1,0 +1,21 @@
+server:
+  port: 1121
+
+spring:
+  application:
+    name: CONFIG-CENTER
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/maot-1990/config.git
+          search-paths: config-repo
+      label: master
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      enabled: true
+    healthcheck:
+      enabled: true
