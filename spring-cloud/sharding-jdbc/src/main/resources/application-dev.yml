@@ -1,0 +1,31 @@
+sharding:
+  jdbc:
+    datasource:
+      names: account0,account1
+      account0:
+        type: org.apache.commons.dbcp.BasicDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url:
+        username: root
+        password: root
+      account1:
+        type: org.apache.commons.dbcp.BasicDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url:
+        username: root
+        password: root
+    config:
+      sharding:
+        default-database-strategy:
+          inline:
+            sharding-column: id
+            algorithm-expression: account${id % 2}
+        tables:
+          t_test:
+            actual-data-nodes: account${0..1}.t_test_${0..1}
+            table-strategy:
+              inline:
+                sharding-column: id
+                algorithm-expression: t_test_${Math.abs(id.substring(id.length()-2, id.length()-1) % 2}
+
+

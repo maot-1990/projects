@@ -1,0 +1,30 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1111/eureka/
+      enabled: true
+    healthcheck:
+      enabled: true
+
+spring:
+  application:
+    name: sharding-jdbc
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh,health,info
+
+server:
+  port: 1151
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+
+
+
+
+

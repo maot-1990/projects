@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  ~ Copyright 2018 PHOENIXFIN PTE. LTD.
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ezreal.shardingjdbc.repository.TestRepository">
+
+    <insert id="insert" parameterType="com.ezreal.shardingjdbc.entity.Test">
+        INSERT INTO t_test (
+          `id`, `name`, `order_id`
+        )
+        VALUES (
+        #{id,jdbcType=INTEGER},
+        #{name,jdbcType=VARCHAR},
+        #{orderId,jdbcType=VARCHAR}
+        )
+    </insert>
+    
+    <delete id="delete" parameterType="java.lang.Object">
+        DELETE FROM t_test WHERE id = #{id,jdbcType=INTEGER}
+        and order_id=#{orderId, jdbcType=VARCHAR}
+    </delete>
+
+    <select id="select" resultType="com.ezreal.shardingjdbc.entity.Test">
+        select `id`,`name`,`order_id` from t_test
+    </select>
+</mapper>
