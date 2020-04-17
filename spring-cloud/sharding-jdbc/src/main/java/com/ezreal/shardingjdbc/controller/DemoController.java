@@ -33,7 +33,7 @@ public class DemoController {
 
     //@Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class})
     @GetMapping("/save")
-    public Test save(int id, String orderId){
+    public Test save(int id, String orderId) {
         DefaultTransactionDefinition def = new DefaultTransactionDefinition();
         def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         TransactionStatus status = transactionManager.getTransaction(def);
@@ -59,12 +59,12 @@ public class DemoController {
     }
 
     @GetMapping("/delete")
-    public int delete(Integer id, String orderId){
+    public int delete(Integer id, String orderId) {
         return demoService.delete(id, orderId);
     }
 
     @GetMapping("/select")
-    public List<Test> select(){
+    public List<Test> select() {
         return demoService.select();
     }
 

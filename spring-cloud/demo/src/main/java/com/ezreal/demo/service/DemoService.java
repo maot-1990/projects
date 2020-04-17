@@ -2,7 +2,7 @@
  * Copyright 2018 PHOENIXFIN PTE. LTD.
  */
 
-package com.ezreal.demoa.service;
+package com.ezreal.demo.service;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.ezreal.demoa.config;
+package com.ezreal.demo.config;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;

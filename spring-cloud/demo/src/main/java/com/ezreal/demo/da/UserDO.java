@@ -1,4 +1,4 @@
-package com.ezreal.demoa.da;
+package com.ezreal.demo.da;
 
 import java.util.Date;
 

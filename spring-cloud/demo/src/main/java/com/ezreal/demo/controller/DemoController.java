@@ -1,4 +1,4 @@
-package com.ezreal.demoa.controller;
+package com.ezreal.demo.controller;
 
 import com.ezreal.demoa.config.DemoConfig;
 import com.ezreal.demoa.service.DemoService;

@@ -1,4 +1,4 @@
-package com.ezreal.demoa.service.impl;
+package com.ezreal.demo.service.impl;
 
 import com.ezreal.demoa.da.UserDO;
 import com.ezreal.demoa.service.DemoService;

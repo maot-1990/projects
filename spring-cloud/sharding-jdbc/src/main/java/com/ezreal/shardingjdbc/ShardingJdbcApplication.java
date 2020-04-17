@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ShardingJdbcApplication {
 
     public static void main(String[] args) {
-		SpringApplication.run(ShardingJdbcApplication.class, args);
+        SpringApplication.run(ShardingJdbcApplication.class, args);
 
     }
 }

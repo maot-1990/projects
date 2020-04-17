@@ -1,4 +1,4 @@
-package com.ezreal.demoa;
+package com.ezreal.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

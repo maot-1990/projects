@@ -9,7 +9,7 @@
 
     <insert id="insert" parameterType="com.ezreal.shardingjdbc.entity.Test">
         INSERT INTO t_test (
-          `id`, `name`, `order_id`
+        `id`, `name`, `order_id`
         )
         VALUES (
         #{id,jdbcType=INTEGER},
@@ -17,7 +17,7 @@
         #{orderId,jdbcType=VARCHAR}
         )
     </insert>
-    
+
     <delete id="delete" parameterType="java.lang.Object">
         DELETE FROM t_test WHERE id = #{id,jdbcType=INTEGER}
         and order_id=#{orderId, jdbcType=VARCHAR}
