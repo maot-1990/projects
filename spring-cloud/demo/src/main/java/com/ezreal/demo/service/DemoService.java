@@ -5,10 +5,14 @@
 package com.ezreal.demo.service;
 
 
+import com.ezreal.demo.dto.Car;
+
 /**
  * Created by tao.mao on 2018/8/25.
  */
 public interface DemoService {
 
-    public void test();
+    void test();
+
+    void aspectj(Car car);
 }

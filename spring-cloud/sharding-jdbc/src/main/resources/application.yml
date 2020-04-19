@@ -22,7 +22,7 @@ server:
   port: 1151
 
 mybatis:
-  config-location: classpath:mybatis/mybatis-config.xml
+  config-location: classpath:mybatis/mybatis-configuration.xml
 
 
 

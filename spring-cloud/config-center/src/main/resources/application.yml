@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/maot-1990/config.git
-          search-paths: config-repo
+          uri: https://github.com/maot-1990/configuration.git
+          search-paths: configuration-repo
       label: master
 
 eureka:

@@ -29,7 +29,7 @@
 	<context:annotation-config />
 
 	<!-- 加载 properties資源文件 -->
-	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.configuration.PropertyPlaceholderConfigurer">
 		<property name="ignoreResourceNotFound" value="false" /> <property name="ignoreUnresolvablePlaceholders" 
 		value="true" /> <property name="locations"> <list> <value>classpath:properties/jdbc.properties</value> 
 		<value>classpath:properties/specific.properties</value> </list> </property> 
@@ -78,10 +78,10 @@
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 	<!-- <bean id="firstAspect" class="com.maot.navigation.aop.FirstAspect"></bean> 
-		<aop:config proxy-target-class="true"> <aop:pointcut id="firstPointCut" expression="execution(* 
+		<aop:configuration proxy-target-class="true"> <aop:pointcut id="firstPointCut" expression="execution(*
 		com.maot.navigation.demo.service.impl.Demo*.testAspect(..))" /> <aop:aspect 
 		ref="firstAspect"> <aop:before method="before" pointcut-ref="firstPointCut"/> 
-		<aop:after method="after" pointcut-ref="firstPointCut"/> </aop:aspect> </aop:config> -->
+		<aop:after method="after" pointcut-ref="firstPointCut"/> </aop:aspect> </aop:configuration> -->
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
