@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @ConfigurationProperties(prefix = "demo.car")
 @Data
-public class DemoConfig{
+public class DemoProperties {
 
     private String id;
 

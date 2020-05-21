@@ -12,12 +12,12 @@ import org.springframework.context.annotation.PropertySource;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.ezreal.demo"})
-@EnableConfigurationProperties(value = DemoConfig.class)
+@EnableConfigurationProperties(value = DemoProperties.class)
 @PropertySource(value = "classpath:/application.properties")
 public class MainConfiguration {
 
     @Bean
-    public Car car(DemoConfig demoConfig) {
+    public Car car(DemoProperties demoConfig) {
         return new Car(demoConfig.getId(), demoConfig.getName());
     }
 
