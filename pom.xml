@@ -12,5 +12,6 @@
     <modules>
         <module>spring-mvc</module>
         <module>spring-cloud</module>
+        <module>blog</module>
     </modules>
 </project>

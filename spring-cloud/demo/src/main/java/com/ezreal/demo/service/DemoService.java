@@ -15,4 +15,6 @@ public interface DemoService {
     void test();
 
     void aspectj(Car car);
+
+    void aspectjSpel(Car car);
 }

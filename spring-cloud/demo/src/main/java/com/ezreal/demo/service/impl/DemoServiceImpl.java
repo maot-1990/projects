@@ -1,5 +1,6 @@
 package com.ezreal.demo.service.impl;
 
+import com.ezreal.demo.anno.SpelDemo;
 import com.ezreal.demo.dto.Car;
 import com.ezreal.demo.service.DemoService;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,15 @@ public class DemoServiceImpl implements DemoService {
         System.out.println("执行aspectj方法");
     }
 
+    /**
+     * Spel解析
+     * @param car
+     */
+    @SpelDemo(spelKey = "@systemProperties.get('os.name') + #persion.name + #car.name + 'testSpel' + #demoProperties.id " +
+            "+ #systemProperties.get('sun.boot.library.path') + T(Math).random()")
+    @Override
+    public void aspectjSpel(Car car) {
+        System.out.println("执行aspectjSpel方法");
+    }
 
 }
